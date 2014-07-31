@@ -33,7 +33,7 @@ import static org.fusesource.hawtjni.runtime.ArgFlag.*;
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
 @JniClass
-class JNI {
+public class JNI {
 
     public static final Library LIBRARY = new Library("lmdbjni", JNI.class);
 
@@ -544,6 +544,17 @@ class JNI {
             @JniArg(cast = "MDB_val *", flags={NO_OUT}) MDB_val key,
             @JniArg(cast = "MDB_val *", flags={NO_IN}) MDB_val data);
 
+
+    /**
+     * <a href="http://symas.com/mdb/doc/group__mdb.html#">details</a>
+     */
+    @JniMethod
+    public static final native int mdb_get(
+            @JniArg(cast = "MDB_txn *") long txn,
+            @JniArg(cast = "unsigned int ") long dbi,
+            @JniArg(cast = "MDB_val *") long key,
+            @JniArg(cast = "MDB_val *") long data);
+
     /**
      * <a href="http://symas.com/mdb/doc/group__mdb.html#">details</a>
      */
@@ -559,11 +570,32 @@ class JNI {
      * <a href="http://symas.com/mdb/doc/group__mdb.html#">details</a>
      */
     @JniMethod
+    public static final native int mdb_put(
+            @JniArg(cast = "MDB_txn *") long txn,
+            @JniArg(cast = "unsigned int ") long dbi,
+            @JniArg(cast = "MDB_val *") long key,
+            @JniArg(cast = "MDB_val *") long data,
+            @JniArg(cast = "unsigned int") int flags);
+
+    /**
+     * <a href="http://symas.com/mdb/doc/group__mdb.html#">details</a>
+     */
+    @JniMethod
     public static final native int mdb_del(
             @JniArg(cast = "MDB_txn *") long txn,
             @JniArg(cast = "unsigned int ") long dbi,
             @JniArg(cast = "MDB_val *", flags={NO_OUT}) MDB_val key,
             @JniArg(cast = "MDB_val *", flags={NO_OUT}) MDB_val data);
+
+    /**
+     * <a href="http://symas.com/mdb/doc/group__mdb.html#">details</a>
+     */
+    @JniMethod
+    public static final native int mdb_del(
+            @JniArg(cast = "MDB_txn *") long txn,
+            @JniArg(cast = "unsigned int ") long dbi,
+            @JniArg(cast = "MDB_val *") long key,
+            @JniArg(cast = "MDB_val *") long data);
 
     /**
      * <a href="http://symas.com/mdb/doc/group__mdb.html#">details</a>
@@ -617,10 +649,30 @@ class JNI {
      * <a href="http://symas.com/mdb/doc/group__mdb.html#">details</a>
      */
     @JniMethod
+    public static final native int mdb_cursor_get(
+            @JniArg(cast = "MDB_cursor *") long cursor,
+            @JniArg(cast = "MDB_val *") long key,
+            @JniArg(cast = "MDB_val *") long data,
+            @JniArg(cast = "MDB_cursor_op") int op);
+
+    /**
+     * <a href="http://symas.com/mdb/doc/group__mdb.html#">details</a>
+     */
+    @JniMethod
     public static final native int mdb_cursor_put(
             @JniArg(cast = "MDB_cursor *") long cursor,
             @JniArg(cast = "MDB_val *", flags = {NO_OUT}) MDB_val key,
             @JniArg(cast = "MDB_val *", flags = {NO_OUT}) MDB_val data,
+            @JniArg(cast = "unsigned int ") int flags);
+
+    /**
+     * <a href="http://symas.com/mdb/doc/group__mdb.html#">details</a>
+     */
+    @JniMethod
+    public static final native int mdb_cursor_put(
+            @JniArg(cast = "MDB_cursor *") long cursor,
+            @JniArg(cast = "MDB_val *") long key,
+            @JniArg(cast = "MDB_val *") long data,
             @JniArg(cast = "unsigned int ") int flags);
 
     /**
@@ -653,11 +705,31 @@ class JNI {
      * <a href="http://symas.com/mdb/doc/group__mdb.html#">details</a>
      */
     @JniMethod
+    public static final native int mdb_cmp(
+            @JniArg(cast = "MDB_txn *") long txn,
+            @JniArg(cast = "unsigned int") long dbi,
+            @JniArg(cast = "MDB_val *") long a,
+            @JniArg(cast = "MDB_val *") long b);
+
+    /**
+     * <a href="http://symas.com/mdb/doc/group__mdb.html#">details</a>
+     */
+    @JniMethod
     public static final native int mdb_dcmp(
             @JniArg(cast = "MDB_txn *") long txn,
             @JniArg(cast = "unsigned int") long dbi,
             @JniArg(cast = "MDB_val *", flags = {NO_OUT}) MDB_val a,
             @JniArg(cast = "MDB_val *", flags = {NO_OUT}) MDB_val b);
+
+    /**
+     * <a href="http://symas.com/mdb/doc/group__mdb.html#">details</a>
+     */
+    @JniMethod
+    public static final native int mdb_dcmp(
+            @JniArg(cast = "MDB_txn *") long txn,
+            @JniArg(cast = "unsigned int") long dbi,
+            @JniArg(cast = "MDB_val *") long a,
+            @JniArg(cast = "MDB_val *") long b);
 
 
 }
