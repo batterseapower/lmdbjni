@@ -26,7 +26,7 @@ import static org.fusesource.lmdbjni.JNI.strlen;
  *
  * @author <a href="http://hiramchirino.com">Hiram Chirino</a>
  */
-class Util {
+public class Util {
 
     public  static int errno() {
         return errno();
